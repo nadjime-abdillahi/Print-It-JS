@@ -19,7 +19,7 @@ const slides = [
 
 var selectedIndex = 0;
 
-// On affiche les points selon la slide seléctionée
+// On affiche les points selon la slide que l'on seléctionne
 function draw_carousel_dots(){
 	var dots_container = document.querySelector("#banner .dots");
 	dots_container.innerHTML = "";
