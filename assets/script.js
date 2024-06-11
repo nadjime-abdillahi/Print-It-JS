@@ -21,7 +21,7 @@ var selectedIndex = 0;
 
 // On affiche les points selon la slide que l'on seléctionne
 function draw_carousel_dots(){
-	var dots_container = document.querySelector("#banner .dots");
+	var dots_container = document.querySelector(".dots");
 	dots_container.innerHTML = "";
 	for(var i=0; i < slides.length; i++){
 		var dotDiv = document.createElement("div");
@@ -33,7 +33,7 @@ function draw_carousel_dots(){
 
 // On met à jour le carousel selon la slide seléctionnée
 function update_carousel(selectedIndex){
-	var banner_img = document.querySelector("#banner .banner-img");
+	var banner_img = document.querySelector(".banner-img");
 	banner_img.src = "./assets/images/slideshow/" + slides[selectedIndex]["image"];
 	var banner_paragraphe = document.querySelector("#banner p");
 	banner_paragraphe.innerHTML = slides[selectedIndex]["tagLine"]
@@ -41,20 +41,20 @@ function update_carousel(selectedIndex){
 }
 
 // On gère le clic de la flèche gauche
-var arrow_left = document.querySelector("#banner .arrow_left");
-arrow_left.onclick = function(){
+var arrow_left = document.querySelector(".arrow_left");
+arrow_left.addEventListener("click", function(){
 	selectedIndex--;
 	if(selectedIndex < 0) selectedIndex = slides.length - 1
 	update_carousel(selectedIndex);
-};
+});
 
 // On gère le clique de la flèche droite
-var arrow_right = document.querySelector("#banner .arrow_right");
-arrow_right.onclick = function(){
+var arrow_right = document.querySelector(".arrow_right");
+arrow_right.addEventListener("click", function(){
 	selectedIndex++;
 	if(selectedIndex > (slides.length - 1)) selectedIndex = 0;
 	update_carousel(selectedIndex);
-};
+});
 
 // On dessine les points au premier affichage du carousel
 draw_carousel_dots();
