@@ -17,44 +17,77 @@ const slides = [
 	}
 ]
 
-var selectedIndex = 0;
+let indexSlide = 0
 
-// On affiche les points selon la slide que l'on seléctionne
-function draw_carousel_dots(){
-	var dots_container = document.querySelector(".dots");
-	dots_container.innerHTML = "";
-	for(var i=0; i < slides.length; i++){
-		var dotDiv = document.createElement("div");
-		dotDiv.classList.add("dot");
-		if(i == selectedIndex) dotDiv.classList.add("dot_selected");
-		dots_container.appendChild(dotDiv);
+const arrowLeft = document.getElementById('arrow_left')
+const arrowRight = document.getElementById('arrow_right')
+const dots = document.querySelector('.dots')
+const imgBanner = document.querySelector('.banner-img')
+const tagLine = document.getElementById('tag-line')
+
+// fonction pour la fleche gauche //
+
+arrowLeft.addEventListener('click', () => {
+
+	// condition pour faire défiler vers la gauche //
+	if (indexSlide === 0) {
+		indexSlide = slides.length - 1
+	} else {
+		indexSlide = indexSlide - 1
 	}
+
+	// on affiche le resultat via la console //
+	console.log("click en direction de la gauche - indexSlide:", indexSlide)
+	updateDots()
+})
+
+// fonction pour la fleche droite //
+
+arrowRight.addEventListener('click', () => {
+
+	// condition pour faire défiler vers la droite //
+	if (indexSlide === slides.length - 1) {
+		indexSlide = 0
+	} else {
+		indexSlide = indexSlide + 1
+	}
+
+	// on affiche le resultat vers la droite //
+	console.log("click sur fleche droite - indexSlide:", indexSlide)
+	updateDots()
+})
+
+// variable pour mettre a jour les elements qui defile //
+
+const updateImageAndTagLine = () => {
+
+	// mettre a jour  les images du projet //
+	imgBanner.src = `./assets/images/slideshow/${slides[indexSlide].image}`
+
+	// mettre a jour les tag sur les images quand les images défilent //
+	tagLine.innerHTML = slides[indexSlide].tagLine
 }
 
-// On met à jour le carousel selon la slide seléctionnée
-function update_carousel(selectedIndex){
-	var banner_img = document.querySelector(".banner-img");
-	banner_img.src = "./assets/images/slideshow/" + slides[selectedIndex]["image"];
-	var banner_paragraphe = document.querySelector("#banner p");
-	banner_paragraphe.innerHTML = slides[selectedIndex]["tagLine"]
-	draw_carousel_dots();
+
+// mettre a jour les dots //
+
+const updateDots = () => {
+	while (dots.firstChild) {
+		dots.removeChild(dots.firstChild)
+	}
+
+	slides.forEach((item, index) => {
+		const dot = document.createElement('span')
+
+		if (index === indexSlide) {
+			dot.setAttribute('class', 'dot dot_selected')
+		} else {
+			dot.setAttribute('class', 'dot')
+		}
+		dots.appendChild(dot)
+	})
+
+	updateImageAndTagLine()
 }
 
-// On gère le clic de la flèche gauche
-var arrow_left = document.querySelector(".arrow_left");
-arrow_left.addEventListener("click", function(){
-	selectedIndex--;
-	if(selectedIndex < 0) selectedIndex = slides.length - 1
-	update_carousel(selectedIndex);
-});
-
-// On gère le clique de la flèche droite
-var arrow_right = document.querySelector(".arrow_right");
-arrow_right.addEventListener("click", function(){
-	selectedIndex++;
-	if(selectedIndex > (slides.length - 1)) selectedIndex = 0;
-	update_carousel(selectedIndex);
-});
-
-// On dessine les points au premier affichage du carousel
-draw_carousel_dots();
+updateDots()
