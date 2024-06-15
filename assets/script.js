@@ -38,6 +38,7 @@ arrowLeft.addEventListener('click', () => {
 
 	// on affiche le resultat via la console //
 	console.log("click en direction de la gauche - indexSlide:", indexSlide)
+	updateImageAndTagLine()
 	updateDots()
 })
 
@@ -54,6 +55,7 @@ arrowRight.addEventListener('click', () => {
 
 	// on affiche le resultat vers la droite //
 	console.log("click sur fleche droite - indexSlide:", indexSlide)
+	updateImageAndTagLine()
 	updateDots()
 })
 
@@ -70,24 +72,23 @@ const updateImageAndTagLine = () => {
 
 
 // mettre a jour les dots //
-
-const updateDots = () => {
-	while (dots.firstChild) {
-		dots.removeChild(dots.firstChild)
-	}
-
-	slides.forEach((item, index) => {
-		const dot = document.createElement('span')
-
-		if (index === indexSlide) {
-			dot.setAttribute('class', 'dot dot_selected')
-		} else {
-			dot.setAttribute('class', 'dot')
-		}
-		dots.appendChild(dot)
-	})
-
-	updateImageAndTagLine()
+function updateDots(){
+	const allDots = document.querySelectorAll(".dot")
+	const previousSelected = document.querySelector(".dot_selected")
+	const nextSelected = allDots[indexSlide]
+	previousSelected.classList.remove("dot_selected")
+	nextSelected.classList.add("dot_selected")
 }
 
-updateDots()
+function createDots(){
+	for (let i = 0; i < slides.length; i++) {
+		const dot = document.createElement("div")
+		dot.classList.add("dot")
+		if(indexSlide == i){
+			dot.classList.add("dot_selected")
+		}
+		dots.appendChild(dot)
+	}
+}
+
+createDots()
