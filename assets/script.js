@@ -66,7 +66,7 @@ const updateImageAndTagLine = () => {
 	// mettre a jour  les images du projet //
 	imgBanner.src = `./assets/images/slideshow/${slides[indexSlide].image}`
 
-	// mettre a jour les tag sur les images quand les images défilent //
+	// mettre a jour les tags //
 	tagLine.innerHTML = slides[indexSlide].tagLine
 }
 
@@ -75,9 +75,9 @@ const updateImageAndTagLine = () => {
 function updateDots(){
 	// on crée un constante pour selectionner toutes les dotes //
 	const allDots = document.querySelectorAll(".dot")
-	// on crée une constante pour selectionner la dote par defaut //
+	// on crée une constante pour récupérer l'élément d'avant//
 	const previousSelected = document.querySelector(".dot_selected")
-	// on crée une constante pour récupérer chaque éléments dans la div du .dot//
+	// on crée une constante pour récupérer l'élément d'après//
 	const nextSelected = allDots[indexSlide]
 	// on va supprimer le dot précédent //
 	previousSelected.classList.remove("dot_selected")
