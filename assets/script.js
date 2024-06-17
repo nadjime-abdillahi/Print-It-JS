@@ -73,14 +73,20 @@ const updateImageAndTagLine = () => {
 
 // mettre a jour les dots //
 function updateDots(){
+	// on crée un constante pour selectionner toutes les dotes //
 	const allDots = document.querySelectorAll(".dot")
+	// on crée une constante pour selectionner la dote par defaut //
 	const previousSelected = document.querySelector(".dot_selected")
+	// on crée une constante pour récupérer chaque éléments dans la div du .dot//
 	const nextSelected = allDots[indexSlide]
+	// on va supprimer le dot précédent //
 	previousSelected.classList.remove("dot_selected")
+	// on va ajouter le dot suivant//
 	nextSelected.classList.add("dot_selected")
 }
 
 function createDots(){
+	//nous allon créer et ajouter les points dots //
 	for (let i = 0; i < slides.length; i++) {
 		const dot = document.createElement("div")
 		dot.classList.add("dot")
@@ -91,4 +97,5 @@ function createDots(){
 	}
 }
 
+// afficher le resultat //
 createDots()
